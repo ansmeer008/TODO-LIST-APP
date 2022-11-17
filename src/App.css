@@ -116,10 +116,12 @@ body {
   border: none;
   font-size: 30px;
   background-color: #ffda92;
+  cursor: pointer;
 }
 
-#input-box-button :hover {
+#input-box-button:hover {
   background-color: #90653d;
+  color: white;
 }
 
 #nav-container {

@@ -8,8 +8,6 @@ import InputBox from "../components/InputBox";
 export default function TodoListContainer() {
   const [contentLists, setContentLists] = useState(data);
 
-  const handleList = () => {};
-
   return (
     <div id="todo-list-container">
       <Nav />
@@ -20,7 +18,11 @@ export default function TodoListContainer() {
           })}
         </div>
       </div>
-      <InputBox />
+      <InputBox contentLists={contentLists} setContentLists={setContentLists} />
     </div>
   );
 }
+//props로 inputBox에 setContentLists를 handle하는 핸들러 함수를 내려줌
+//input 박스에서 들어오는 값을 contentLists 배열에 맨 뒤에 담기도록 해야 함
+//아 아닌가 onChange 같은 이벤트가 inputBox에서 일어났으니까 아예 그냥 set함수를 props로
+//handler 함수는 inputbox 함수 컴포넌트 내에서~

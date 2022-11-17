@@ -1,7 +1,21 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { data } from "../static/data";
 
-export default function InputBox() {
+export default function InputBox({ contentLists, setContentLists }) {
+  const [newContent, setNewContent] = useState("");
+  const handleChange = (event) => {
+    setNewContent(event.target.value);
+  };
+  const handleClick = () => {
+    return newContent
+      ? setContentLists([
+          ...contentLists,
+          { id: Math.random(), content: newContent },
+        ])
+      : null;
+  };
+
   return (
     <div id="input-box-container">
       <div id="input-box-body">
@@ -9,9 +23,14 @@ export default function InputBox() {
           id="input-box-input"
           type="text"
           placeholder="새로운 일정을 입력해주세요"
+          onChange={handleChange}
         ></input>
-        <button id="input-box-button">🍪</button>
+        <button id="input-box-button" onClick={handleClick}>
+          🍪
+        </button>
       </div>
     </div>
   );
 }
+
+//근데 이게 쿠키모양 버튼을 눌렀을 때 데이터가 바뀌어야 하네...
