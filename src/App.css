@@ -1,3 +1,10 @@
+/* hover를 사용할 때는 앞뒤를 붙여주어야 한다
+선택자 관련한 띄어쓰기가 될 수 있기 때문에 
+덧붙여서 설명하자면 CSS 문법에서 선택자의 띄어쓰기는 무조건 하위에 소속된 요소를 지칭한다고 보면 되는거라고 이해하면 됨
+예를들어 .item.active는 item과 active 둘 다 클래스인 요소를 선택하지만
+.item .active는 item 클래스 하위의 active 클래스를 가진 요소를 선택한다고 생각해야함
+꺽쇠(>)는 위의 예와 조금 다르게, 딱 자식만(손자나 증손자는 제외됨) 선택하는 문법이라 이해하면 된다~ */
+
 .App {
   text-align: center;
 }
@@ -162,10 +169,18 @@ body {
   margin-top: 10px;
 }
 
+.content-text {
+  width: 300px;
+}
+
+.content-checkbox {
+  accent-color: rgb(255, 238, 0);
+}
+
 #menu-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   width: 500px;
   height: 100vh;
@@ -301,4 +316,17 @@ a {
 }
 .cookie-date {
   font-size: 10px;
+}
+
+.content-delete-button {
+  border: none;
+  border-radius: 50%;
+  background-color: #fde0a8;
+  box-shadow: 1px 1px 1px gray;
+  width: 20px;
+  height: 20px;
+}
+
+.content-delete-button:active {
+  box-shadow: none;
 }

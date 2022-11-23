@@ -4,16 +4,24 @@ import { data } from "../static/data";
 
 export default function InputBox({ contentLists, setContentLists }) {
   const [newContent, setNewContent] = useState("");
+
   const handleChange = (event) => {
     setNewContent(event.target.value);
   };
   const handleClick = () => {
-    return newContent
-      ? setContentLists([
-          ...contentLists,
-          { id: Math.random(), content: newContent },
-        ])
-      : null;
+    if (newContent) {
+      setContentLists([
+        ...contentLists,
+        {
+          id: Math.random(),
+          content: newContent,
+          ischecked: false,
+          date: new Date(),
+        },
+      ]);
+      setNewContent("");
+    }
+    setNewContent("");
   };
 
   return (
@@ -24,6 +32,7 @@ export default function InputBox({ contentLists, setContentLists }) {
           type="text"
           placeholder="새로운 일정을 입력해주세요"
           onChange={handleChange}
+          value={newContent}
         ></input>
         <button id="input-box-button" onClick={handleClick}>
           🍪

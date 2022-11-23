@@ -1,10 +1,8 @@
 import React from "react";
 import Nav from "../components/Nav";
 import { useState } from "react";
-import { getCookieData } from "../static/data";
 
-export default function Cookies() {
-  const [getCookies, setGetCookies] = useState(getCookieData);
+export default function Cookies({ getCookies }) {
   return (
     <div id="cookies-container">
       <Nav />
