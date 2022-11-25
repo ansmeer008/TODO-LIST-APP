@@ -10,7 +10,7 @@ export default function Cookies({ getCookies }) {
         <div id="cookies-box">
           {getCookies.map((el) => {
             return (
-              <div className="cookie-box">
+              <div key={el.id} className="cookie-box">
                 <div className="cookie-icon">{el.cookie}</div>
                 <div className="cookie-date">{el.date}</div>
               </div>

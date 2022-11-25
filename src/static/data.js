@@ -23,18 +23,22 @@ const data = [
 
 const getCookieData = [
   {
+    id: 1,
     cookie: "🍪",
     date: "11월 1일",
   },
   {
+    id: 2,
     cookie: "🍘",
     date: "11월 3일",
   },
   {
+    id: 3,
     cookie: "🍬",
     date: "11월 9일",
   },
   {
+    id: 4,
     cookie: "🥠",
     date: "11월 10일",
   },

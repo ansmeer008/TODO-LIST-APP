@@ -5,12 +5,12 @@ import Nav from "../components/Nav";
 import { data } from "../static/data";
 import InputBox from "../components/InputBox";
 
-export default function TodoListContainer({ setIsAllDone }) {
+export default function TodoListContainer({ setIsAllDone, handleGetCookies }) {
   //콘텐츠(할일)리스트 상태
   const [contentLists, setContentLists] = useState(data);
   //체크된(완료된)할일들 상태이자 할일이 모두 완료되었는지 체크하는 상태
 
-  const [CheckedLists, setCheckedLists] = useState([]);
+  const [checkedLists, setCheckedLists] = useState([]);
 
   //TODO: checkedLists의 length와 contentLIsts의 length가 동일한지 확인하기
   //만약 동일하다면 data의 getCookiedata에 새로운 랜덤 쿠기와 날짜 데이터를 push하고
@@ -36,7 +36,9 @@ export default function TodoListContainer({ setIsAllDone }) {
                 content={el.content}
                 handleDelete={handleDelete}
                 setCheckedLists={setCheckedLists}
-                CheckedLists={CheckedLists}
+                checkedLists={checkedLists}
+                setIsAllDone={setIsAllDone}
+                handleGetCookies={handleGetCookies}
               />
             );
           })}

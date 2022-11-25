@@ -6,39 +6,45 @@ export default function TodoContent({
   id,
   content,
   contentLists,
-  setContentLists,
   handleDelete,
   setCheckedLists,
-  CheckedLists,
+  checkedLists,
   setIsAllDone,
+  handleGetCookies,
 }) {
-  const [isChecked, setIsChecked] = useState(false);
-
-  const handleCheckbox = (e) => {
-    if (e.target.checked) {
-      setIsChecked(true);
-      setCheckedLists([...CheckedLists, { id }]);
+  const handleCheckbox = (checked, id) => {
+    if (checked) {
+      setCheckedLists((prev) => [...prev, id]);
     } else {
-      setIsChecked(false);
-      const deleteFromCheckedList = CheckedLists.filter((el) => el.id !== id);
-      setCheckedLists(deleteFromCheckedList);
+      setCheckedLists(checkedLists.filter((el) => el !== id));
     }
+  };
 
-    if (CheckedLists.length === contentLists.length) {
+  useEffect(() => {
+    if (
+      contentLists !== undefined &&
+      checkedLists !== undefined &&
+      checkedLists.length === contentLists.length
+    ) {
       setIsAllDone(true);
     } else {
       setIsAllDone(false);
     }
-  };
+
+    handleGetCookies();
+  }, [checkedLists]);
+
+  //현재 체크리스트 문제로 애먹는 중... 체크된 녀석들 길이 비교하려고 했는데 계속 먹통...
+  //useEffect를 써야하는지 고민중 (checkedLists가 갱신될 때마다 isAllDone을 확인해야하니까?)
 
   return (
     <div className="content-container">
       <input
         className="content-checkbox"
         type="checkbox"
-        checked={isChecked}
+        checked={checkedLists.includes(id) ? true : false}
         onChange={(e) => {
-          handleCheckbox(e);
+          handleCheckbox(e.target.checked, id);
         }}
       ></input>
       <span className="content-text">{content}</span>

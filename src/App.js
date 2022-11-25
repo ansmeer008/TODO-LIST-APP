@@ -15,6 +15,18 @@ function App() {
 
   //TODO : 여기다가 handleGetCookies 함수 만들어서 TodoContainer에 props로 줘서 변경가능하게
   //만들어야 함
+  const handleGetCookies = () => {
+    if (isAllDone) {
+      setGetCookies([
+        ...getCookies,
+        {
+          id: Math.random(),
+          cookie: "🍩",
+          date: `${new Date().getMonth}월 ${new Date().getDate}일`,
+        },
+      ]);
+    }
+  };
 
   return (
     <Router>
@@ -23,7 +35,12 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route
           path="/todolist"
-          element={<TodoListContainer setIsAllDone={setIsAllDone} />}
+          element={
+            <TodoListContainer
+              setIsAllDone={setIsAllDone}
+              handleGetCookies={handleGetCookies}
+            />
+          }
         />
         <Route path="/cookies" element={<Cookies getCookies={getCookies} />} />
         <Route path="/information" element={<Information />} />
