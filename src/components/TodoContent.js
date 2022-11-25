@@ -1,7 +1,7 @@
 //TODO: 체크박스를 아예 새로운 모양으로 바꿔서 기호가 나오도록 만들기
 
 import React from "react";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 export default function TodoContent({
   id,
   content,
@@ -20,6 +20,9 @@ export default function TodoContent({
     }
   };
 
+  //우리는 이걸 바보짓이라고 하기로 했어요...
+  //undefined인 상태를 고려를 해주어야합니다...
+  //length는 undefined일 때 에러가 나네요
   useEffect(() => {
     if (
       contentLists !== undefined &&

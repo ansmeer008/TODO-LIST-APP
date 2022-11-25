@@ -13,3 +13,5 @@ function useLocalStorage(key, initialState) {
 }
 
 export default useLocalStorage;
+
+//로컬 스토리지 사용 : contentLists, checkedLists, isAllDone, getCookies

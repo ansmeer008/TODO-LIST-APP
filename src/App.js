@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 import TodoListContainer from "./pages/TodoListContainer";
 import Start from "./pages/Start";
@@ -8,6 +8,7 @@ import Calendar from "./pages/Calendar";
 import Menu from "./pages/Menu";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getCookieData } from "./static/data";
+// import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
   const [getCookies, setGetCookies] = useState(getCookieData);
@@ -27,6 +28,25 @@ function App() {
       ]);
     }
   };
+
+  useEffect(() => {
+    const localGetCookies = localStorage.getItem("getCookies");
+    console.log(localGetCookies, JSON.parse(localGetCookies));
+    if (localGetCookies) {
+      setGetCookies(JSON.parse(localGetCookies));
+
+      const localisAllDone = localStorage.getItem("isAllDone");
+      console.log(localisAllDone, JSON.parse(localisAllDone));
+      if (localisAllDone) {
+        setIsAllDone(JSON.parse(localisAllDone));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("getCookies", JSON.stringify(getCookies));
+    localStorage.setItem("isAllDone", JSON.stringify(isAllDone));
+  }, [getCookies, isAllDone]);
 
   return (
     <Router>

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TodoContent from "../components/TodoContent";
 import { useState } from "react";
 import Nav from "../components/Nav";
 import { data } from "../static/data";
 import InputBox from "../components/InputBox";
+// import useLocalStorage from "../hooks/useLocalStorage";
 
 export default function TodoListContainer({ setIsAllDone, handleGetCookies }) {
   //콘텐츠(할일)리스트 상태
@@ -12,16 +13,28 @@ export default function TodoListContainer({ setIsAllDone, handleGetCookies }) {
 
   const [checkedLists, setCheckedLists] = useState([]);
 
-  //TODO: checkedLists의 length와 contentLIsts의 length가 동일한지 확인하기
-  //만약 동일하다면 data의 getCookiedata에 새로운 랜덤 쿠기와 날짜 데이터를 push하고
-  // Cookies 페이지에 새로운 쿠키 생성.
-
-  //checkedLists 통해서 나중에 달성률 보여주는 로딩바 구현할 때 사용도 가능할듯.
-
   const handleDelete = (id) => {
     const deletedLists = contentLists.filter((el) => el.id !== id);
     setContentLists(deletedLists);
   };
+
+  useEffect(() => {
+    const localContentLists = localStorage.getItem("contentLists");
+    console.log(localContentLists, JSON.parse(localContentLists));
+    if (localContentLists) {
+      setContentLists(JSON.parse(localContentLists));
+
+      const localCheckedLists = localStorage.getItem("checkedLists");
+      if (localCheckedLists) {
+        setCheckedLists(JSON.parse(localCheckedLists));
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem("contentLists", JSON.stringify(contentLists));
+    localStorage.setItem("checkedLists", JSON.stringify(checkedLists));
+  }, [contentLists, checkedLists]);
 
   return (
     <div id="todo-list-container">
