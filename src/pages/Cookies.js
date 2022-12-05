@@ -1,6 +1,5 @@
 import React from "react";
 import Nav from "../components/Nav";
-import { useState } from "react";
 
 export default function Cookies({ getCookies }) {
   return (

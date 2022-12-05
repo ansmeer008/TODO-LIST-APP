@@ -1,61 +1,37 @@
 //TODO: 체크박스를 아예 새로운 모양으로 바꿔서 기호가 나오도록 만들기
 
 import React from "react";
-import { useEffect } from "react";
+import { TbTrash } from "react-icons/tb";
 export default function TodoContent({
   id,
-  content,
-  contentLists,
+  contentItem,
   handleDelete,
-  setCheckedLists,
-  checkedLists,
-  setIsAllDone,
-  handleGetCookies,
+  handleUpdate,
 }) {
-  const handleCheckbox = (checked, id) => {
-    if (checked) {
-      setCheckedLists((prev) => [...prev, id]);
-    } else {
-      setCheckedLists(checkedLists.filter((el) => el !== id));
-    }
+  const { content, status } = contentItem;
+
+  const handleChange = (e) => {
+    const status = e.target.checked ? "completed" : "active";
+    handleUpdate({ ...contentItem, status: status });
   };
-
-  //우리는 이걸 바보짓이라고 하기로 했어요...
-  //undefined인 상태를 고려를 해주어야합니다...
-  //length는 undefined일 때 에러가 나네요
-  useEffect(() => {
-    if (
-      contentLists !== undefined &&
-      checkedLists !== undefined &&
-      checkedLists.length === contentLists.length
-    ) {
-      setIsAllDone(true);
-    } else {
-      setIsAllDone(false);
-    }
-
-    handleGetCookies();
-  }, [checkedLists]);
-
-  //현재 체크리스트 문제로 애먹는 중... 체크된 녀석들 길이 비교하려고 했는데 계속 먹통...
-  //useEffect를 써야하는지 고민중 (checkedLists가 갱신될 때마다 isAllDone을 확인해야하니까?)
 
   return (
     <div className="content-container">
       <input
         className="content-checkbox"
         type="checkbox"
-        checked={checkedLists.includes(id) ? true : false}
-        onChange={(e) => {
-          handleCheckbox(e.target.checked, id);
-        }}
+        id="checkbox"
+        checked={status === "completed"}
+        onChange={handleChange}
       ></input>
-      <span className="content-text">{content}</span>
+      <label htmlFor="checkbox" className="content-text">
+        {content}
+      </label>
       <button
         className="content-delete-button"
         onClick={() => handleDelete(id)}
       >
-        X
+        <TbTrash />
       </button>
     </div>
   );

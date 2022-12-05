@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { data } from "../static/data";
+import { v4 as uuidv4 } from "uuid";
 
 export default function InputBox({ contentLists, setContentLists }) {
   const [newContent, setNewContent] = useState("");
@@ -8,25 +8,28 @@ export default function InputBox({ contentLists, setContentLists }) {
   const handleChange = (event) => {
     setNewContent(event.target.value);
   };
-  const handleClick = () => {
-    if (newContent) {
+
+  //새로운 일정을 추가
+  const handleClick = (e) => {
+    if (newContent && newContent.trim().length !== 0) {
+      e.preventDefault();
       setContentLists([
         ...contentLists,
         {
-          id: Math.random(),
+          id: uuidv4(),
           content: newContent,
-          ischecked: false,
           date: new Date(),
+          status: "active",
         },
       ]);
-      setNewContent("");
+      // setNewContent("");
     }
     setNewContent("");
   };
 
   return (
     <div id="input-box-container">
-      <div id="input-box-body">
+      <form id="input-box-body">
         <input
           id="input-box-input"
           type="text"
@@ -37,7 +40,7 @@ export default function InputBox({ contentLists, setContentLists }) {
         <button id="input-box-button" onClick={handleClick}>
           🍪
         </button>
-      </div>
+      </form>
     </div>
   );
 }

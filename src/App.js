@@ -8,45 +8,73 @@ import Calendar from "./pages/Calendar";
 import Menu from "./pages/Menu";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getCookieData } from "./static/data";
+import { v4 as uuidv4 } from "uuid";
 // import useLocalStorage from "./hooks/useLocalStorage";
 
+function readCookiesFromLocalstorage() {
+  const cookies = localStorage.getItem("getCookies");
+  return cookies ? JSON.parse(cookies) : [];
+}
+
+const cookieIcons = [
+  "🍭",
+  "🍬",
+  "🍪",
+  "🍘",
+  "🥠",
+  "🍩",
+  "🍦",
+  "🍨",
+  "🥨",
+  "🥐",
+  "🥮",
+];
+
 function App() {
-  const [getCookies, setGetCookies] = useState(getCookieData);
+  const [getCookies, setGetCookies] = useState(readCookiesFromLocalstorage);
   const [isAllDone, setIsAllDone] = useState(false);
 
-  //TODO : 여기다가 handleGetCookies 함수 만들어서 TodoContainer에 props로 줘서 변경가능하게
-  //만들어야 함
-  const handleGetCookies = () => {
+  // const handleGetCookies = () => {
+  //   if (isAllDone) {
+  //     setGetCookies([
+  //       ...getCookies,
+  //       {
+  //         id: uuidv4(),
+  //         cookie: cookieIcons[Math.floor(Math.random() * cookieIcons.length)],
+  //         date: `${new Date().getMonth}월 ${new Date().getDate}일`,
+  //       },
+  //     ]);
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   const localGetCookies = localStorage.getItem("getCookies");
+  //   console.log(localGetCookies, JSON.parse(localGetCookies));
+  //   if (localGetCookies) {
+  //     setGetCookies(JSON.parse(localGetCookies));
+
+  //     const localisAllDone = localStorage.getItem("isAllDone");
+  //     console.log(localisAllDone, JSON.parse(localisAllDone));
+  //     if (localisAllDone) {
+  //       setIsAllDone(JSON.parse(localisAllDone));
+  //     }
+  //   }
+  // }, []);
+
+  useEffect(() => {
     if (isAllDone) {
       setGetCookies([
         ...getCookies,
         {
-          id: Math.random(),
-          cookie: "🍩",
+          id: uuidv4(),
+          cookie: cookieIcons[Math.floor(Math.random() * cookieIcons.length)],
           date: `${new Date().getMonth}월 ${new Date().getDate}일`,
         },
       ]);
     }
-  };
-
-  useEffect(() => {
-    const localGetCookies = localStorage.getItem("getCookies");
-    console.log(localGetCookies, JSON.parse(localGetCookies));
-    if (localGetCookies) {
-      setGetCookies(JSON.parse(localGetCookies));
-
-      const localisAllDone = localStorage.getItem("isAllDone");
-      console.log(localisAllDone, JSON.parse(localisAllDone));
-      if (localisAllDone) {
-        setIsAllDone(JSON.parse(localisAllDone));
-      }
-    }
-  }, []);
-
-  useEffect(() => {
     localStorage.setItem("getCookies", JSON.stringify(getCookies));
     localStorage.setItem("isAllDone", JSON.stringify(isAllDone));
-  }, [getCookies, isAllDone]);
+  }, [isAllDone]);
 
   return (
     <Router>
@@ -55,12 +83,7 @@ function App() {
         <Route path="/menu" element={<Menu />} />
         <Route
           path="/todolist"
-          element={
-            <TodoListContainer
-              setIsAllDone={setIsAllDone}
-              handleGetCookies={handleGetCookies}
-            />
-          }
+          element={<TodoListContainer setIsAllDone={setIsAllDone} />}
         />
         <Route path="/cookies" element={<Cookies getCookies={getCookies} />} />
         <Route path="/information" element={<Information />} />

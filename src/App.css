@@ -321,10 +321,11 @@ a {
 .content-delete-button {
   border: none;
   border-radius: 50%;
-  background-color: #fde0a8;
-  box-shadow: 1px 1px 1px gray;
-  width: 20px;
-  height: 20px;
+  background-color: rgb(225, 224, 224);
+  width: 30px;
+  height: 30px;
+  font-size: 15px;
+  text-align: center;
 }
 
 .content-delete-button:active {
