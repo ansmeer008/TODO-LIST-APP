@@ -4,7 +4,7 @@ import TodoListContainer from "./pages/TodoListContainer";
 import Start from "./pages/Start";
 import Information from "./pages/Information";
 import Cookies from "./pages/Cookies";
-import Calendar from "./pages/Calendar";
+import ToDoCalendar from "./pages/ToDoCalendar";
 import Menu from "./pages/Menu";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getCookieData } from "./static/data";
@@ -29,6 +29,10 @@ const cookieIcons = [
   "🥐",
   "🥮",
 ];
+
+const now = new Date();
+const month = now.getMonth();
+const date = now.getDate();
 
 function App() {
   const [getCookies, setGetCookies] = useState(readCookiesFromLocalstorage);
@@ -68,7 +72,7 @@ function App() {
         {
           id: uuidv4(),
           cookie: cookieIcons[Math.floor(Math.random() * cookieIcons.length)],
-          date: `${new Date().getMonth}월 ${new Date().getDate}일`,
+          date: `${month}월 ${date}일`,
         },
       ]);
     }
@@ -85,9 +89,14 @@ function App() {
           path="/todolist"
           element={<TodoListContainer setIsAllDone={setIsAllDone} />}
         />
-        <Route path="/cookies" element={<Cookies getCookies={getCookies} />} />
+        <Route
+          path="/cookies"
+          element={
+            <Cookies getCookies={getCookies} setGetCookies={setGetCookies} />
+          }
+        />
         <Route path="/information" element={<Information />} />
-        <Route path="/calendar" element={<Calendar />} />
+        <Route path="/calendar" element={<ToDoCalendar />} />
       </Routes>
     </Router>
   );
