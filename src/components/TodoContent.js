@@ -8,7 +8,7 @@ export default function TodoContent({
   handleDelete,
   handleUpdate,
 }) {
-  const { content, status } = contentItem;
+  const { contentid, content, status } = contentItem;
 
   const handleChange = (e) => {
     const status = e.target.checked ? "completed" : "active";
@@ -20,11 +20,11 @@ export default function TodoContent({
       <input
         className="content-checkbox"
         type="checkbox"
-        id="checkbox"
+        id={contentid}
         checked={status === "completed"}
         onChange={handleChange}
       ></input>
-      <label htmlFor="checkbox" className="content-text">
+      <label htmlFor={contentid} className="content-text">
         {content}
       </label>
       <button

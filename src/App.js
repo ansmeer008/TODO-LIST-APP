@@ -38,35 +38,11 @@ function App() {
   const [getCookies, setGetCookies] = useState(readCookiesFromLocalstorage);
   const [isAllDone, setIsAllDone] = useState(false);
 
-  // const handleGetCookies = () => {
-  //   if (isAllDone) {
-  //     setGetCookies([
-  //       ...getCookies,
-  //       {
-  //         id: uuidv4(),
-  //         cookie: cookieIcons[Math.floor(Math.random() * cookieIcons.length)],
-  //         date: `${new Date().getMonth}월 ${new Date().getDate}일`,
-  //       },
-  //     ]);
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   const localGetCookies = localStorage.getItem("getCookies");
-  //   console.log(localGetCookies, JSON.parse(localGetCookies));
-  //   if (localGetCookies) {
-  //     setGetCookies(JSON.parse(localGetCookies));
-
-  //     const localisAllDone = localStorage.getItem("isAllDone");
-  //     console.log(localisAllDone, JSON.parse(localisAllDone));
-  //     if (localisAllDone) {
-  //       setIsAllDone(JSON.parse(localisAllDone));
-  //     }
-  //   }
-  // }, []);
-
   useEffect(() => {
-    if (isAllDone) {
+    if (
+      isAllDone &&
+      !getCookies.map((el) => el.date).includes(`${month}월 ${date}일`)
+    ) {
       setGetCookies([
         ...getCookies,
         {

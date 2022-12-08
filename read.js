@@ -22,4 +22,30 @@
 //4️⃣
 //uuid 라이브러리 사용해서 id를 좀 더 랜덤하게 만들어 줄 수 있다.
 
-//TODO : 쿠키 발급 날짜 00월 00일로 나오도록 고치기
+//12월 7일
+//쿠키 날짜 이상하게 나오던 거 수정함
+//리액트 캘린더 라이브러리 install 하고 디자인 조금 만짐
+
+//12월 8일
+//1️⃣ 쿠키를 삭제하는 버튼 만들면 로컬 스토리지에서 삭제 되도록 하기
+//위 기능을 구현하다가 에러에 봉착했는데...
+//Cannot update a component (`App`) while rendering a different component (`Cookies`). To locate the bad setState() call inside
+//라는 에러였다. 컴포넌트 App을 리렌더링 하는 도중에 Cookies 라는 컴포넌트를 업데이트 할 수 없다..는 뜻 같았다.
+//보통 useEffect를 써주면 해결된다고 되어 있었는데, 나는 해결되지 않아서 뭔가 했더니..
+//handleLocalStorageCookie를 onClick이벤트 핸들러로 넘겨줄 때 콜백 함수 형태로 넘겨주지 않아서 그런 거였다..
+//onClick={handleLocalStorageCookie(el.id)}을
+//onClick={() => handleLocalStorageCookie(el.id)}이렇게 고치니까 해결되었다.
+//이제보니 함수 실행을 전달해서는 안 되는데 안 된다는 짓을 그대로 하고 있었네...?
+//https://velog.io/@ansmeer008/TIL-React-custom-component-%EA%B3%BC%EC%A0%9C-advanced
+//위 링크의 추가학습 부분 체크해보면 실행시키고자 하는 이벤트 핸들러 함수를 콜백으로 전달할 수 있다고 되어 있음.
+//함수 자체를 넘겨주는 것은 매개변수를 넘겨줄 필요가 없을 때..!
+//어찌됐건... 함수 실행을 넘겨주는 건 바보똥멍청이짓이었다는 것을...ㅠ
+//2️⃣ 쿠키가 이미 동일 날짜에 발급되어 있다면 더 발급되지 않도록 하기
+//쿠키가 발급되는 시점이 useEffect가 isAllDone의 변화를 감지하고
+//isAllDone이 true인지를 확인하는 시점이므로
+//isAllDone이 true인지 확인하고 + getCookies 배열 내의 객체 요소들 중 date키의 값들을 새로운 배열로 리턴하고
+//해당 배열에 오늘 날짜 (0월00일 형식)가 존재하는지 검증했다.
+//존재하지 않을 때만 발급되어야 하므로 앞쪽에 느낌표를 붙여주었다.
+
+//TODO : 캘린더 Css 마무리, 기능 추가할 수 있는 것 더 탐구하기
+//https://velog.io/@khy226/%EB%A6%AC%EC%95%A1%ED%8A%B8-%EC%95%B1%EC%97%90-%EB%8B%AC%EB%A0%A5react-calendar-%EC%A0%81%EC%9A%A9%ED%95%98%EA%B8%B0

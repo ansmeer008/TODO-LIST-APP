@@ -4,6 +4,9 @@
 예를들어 .item.active는 item과 active 둘 다 클래스인 요소를 선택하지만
 .item .active는 item 클래스 하위의 active 클래스를 가진 요소를 선택한다고 생각해야함
 꺽쇠(>)는 위의 예와 조금 다르게, 딱 자식만(손자나 증손자는 제외됨) 선택하는 문법이라 이해하면 된다~ */
+:root {
+  --color-accent: #90653d;
+}
 
 .App {
   text-align: center;
@@ -13,6 +16,7 @@ body {
   display: flex;
   justify-content: center;
   height: 100vh;
+  accent-color: var(--color-accent);
 }
 
 #start-container {
@@ -174,7 +178,8 @@ body {
 }
 
 .content-checkbox {
-  accent-color: rgb(255, 238, 0);
+  width: 1.3rem;
+  height: 1.3rem;
 }
 
 #menu-container {
