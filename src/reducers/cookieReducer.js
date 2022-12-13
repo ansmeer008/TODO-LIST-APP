@@ -5,13 +5,20 @@ const cookieReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_COOKIE:
       return Object.assign({}, state, {
-        todo: [...state.cookies, action.payload],
+        cookies: [
+          ...state.cookies,
+          {
+            id: action.payload.itemId,
+            cookie: action.payload.cookieIcon,
+            date: action.payload.cookieDate,
+          },
+        ],
       });
       break;
 
     case DELETE_COOKIE:
       return Object.assign({}, state, {
-        todo: state.cookies.filter((el) => el.itemId !== action.payload.itemId),
+        cookies: state.cookies.filter((el) => el.id !== action.payload.itemId),
       });
       break;
 

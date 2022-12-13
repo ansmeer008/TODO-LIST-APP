@@ -36,11 +36,13 @@ export const setCheckboxStatus = (itemId) => {
 };
 
 //cookies에 새 쿠키를 추가하는 행동
-export const addCookie = (itemId) => {
+export const addCookie = (itemId, cookieIcon, cookieDate) => {
   return {
     type: ADD_COOKIE,
     payload: {
       itemId,
+      cookieIcon,
+      cookieDate,
     },
   };
 };

@@ -256,6 +256,7 @@ a {
 #cookies {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
 }
 
 #calendar-container {

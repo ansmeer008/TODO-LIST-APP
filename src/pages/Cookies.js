@@ -1,17 +1,20 @@
 import React from "react";
 import Nav from "../components/Nav";
 import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteCookie } from "../actions";
 
-export default function Cookies({ getCookies, setGetCookies }) {
-  const handleLocalStorageCookie = (id) => {
-    const deletedCookies = getCookies.filter((el) => el.id !== id);
-    setGetCookies(deletedCookies);
+export default function Cookies() {
+  const dispatch = useDispatch();
+  const { cookies } = useSelector((state) => state.cookieReducer);
+  const handleDeleteCookie = (id) => {
+    dispatch(deleteCookie(id));
   };
 
-  useEffect(() => {
-    localStorage.removeItem("getCookies");
-    localStorage.setItem("getCookies", JSON.stringify(getCookies));
-  }, [getCookies]);
+  // useEffect(() => {
+  //   localStorage.removeItem("getCookies");
+  //   localStorage.setItem("getCookies", JSON.stringify(getCookies));
+  // }, [getCookies]);
 
   return (
     <div id="cookies-container">
@@ -22,7 +25,7 @@ export default function Cookies({ getCookies, setGetCookies }) {
             매일 할 일을 완료해 쿠키들을 모아보세요!
           </span>
           <div id="cookies">
-            {getCookies.map((el) => {
+            {cookies.map((el) => {
               return (
                 <div key={el.id} className="cookie-box-container">
                   <div className="cookie-box">
@@ -31,7 +34,7 @@ export default function Cookies({ getCookies, setGetCookies }) {
                   </div>
                   <button
                     className="cookie-delete-button"
-                    onClick={() => handleLocalStorageCookie(el.id)}
+                    onClick={() => handleDeleteCookie(el.id)}
                   >
                     x
                   </button>
