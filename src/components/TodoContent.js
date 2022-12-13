@@ -1,18 +1,21 @@
 //TODO: 체크박스를 아예 새로운 모양으로 바꿔서 기호가 나오도록 만들기
-
 import React from "react";
 import { TbTrash } from "react-icons/tb";
-export default function TodoContent({
-  id,
-  contentItem,
-  handleDelete,
-  handleUpdate,
-}) {
-  const { contentid, content, status } = contentItem;
+import { useDispatch } from "react-redux";
+import { setCheckboxStatus, deleteToDo } from "../actions";
 
-  const handleChange = (e) => {
-    const status = e.target.checked ? "completed" : "active";
-    handleUpdate({ ...contentItem, status: status });
+export default function TodoContent({ tododata }) {
+  const { id, content, status } = tododata;
+  const dispatch = useDispatch();
+
+  const handleChange = () => {
+    dispatch(setCheckboxStatus(id));
+    console.log(`체크 잘 된다!${id}`);
+  };
+
+  const handleDelete = () => {
+    dispatch(deleteToDo(id));
+    console.log(`삭제 잘 된다!${id}`);
   };
 
   return (
@@ -20,17 +23,14 @@ export default function TodoContent({
       <input
         className="content-checkbox"
         type="checkbox"
-        id={contentid}
-        checked={status === "completed"}
-        onChange={handleChange}
+        id={id}
+        checked={status === true}
+        onChange={() => handleChange()}
       ></input>
-      <label htmlFor={contentid} className="content-text">
+      <label htmlFor={id} className="content-text">
         {content}
       </label>
-      <button
-        className="content-delete-button"
-        onClick={() => handleDelete(id)}
-      >
+      <button className="content-delete-button" onClick={() => handleDelete()}>
         <TbTrash />
       </button>
     </div>

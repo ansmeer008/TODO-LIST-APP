@@ -1,8 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
+import { useSelector, useDispatch } from "react-redux";
+import { addToDo } from "../actions";
+import TodoContent from "./TodoContent";
 
-export default function InputBox({ contentLists, setContentLists }) {
+export default function InputBox() {
+  const dispatch = useDispatch();
+  const { todo } = useSelector((state) => state.todoReducer);
   const [newContent, setNewContent] = useState("");
 
   const handleChange = (event) => {
@@ -13,16 +18,18 @@ export default function InputBox({ contentLists, setContentLists }) {
   const handleClick = (e) => {
     if (newContent && newContent.trim().length !== 0) {
       e.preventDefault();
-      setContentLists([
-        ...contentLists,
-        {
-          id: uuidv4(),
-          content: newContent,
-          date: new Date(),
-          status: "active",
-        },
-      ]);
+      // setContentLists([
+      //   ...contentLists,
+      //   {
+      //     id: uuidv4(),
+      //     content: newContent,
+      //     date: new Date(),
+      //     status: "active",
+      //   },
+      // ]);
       // setNewContent("");
+      let newid = uuidv4();
+      dispatch(addToDo(newid, newContent));
     }
     setNewContent("");
   };
