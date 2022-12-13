@@ -9,50 +9,39 @@ import Menu from "./pages/Menu";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { getCookieData } from "./static/data";
 import { v4 as uuidv4 } from "uuid";
-// import useLocalStorage from "./hooks/useLocalStorage";
-
-function readCookiesFromLocalstorage() {
-  const cookies = localStorage.getItem("getCookies");
-  return cookies ? JSON.parse(cookies) : [];
-}
-
-const cookieIcons = [
-  "🍭",
-  "🍬",
-  "🍪",
-  "🍘",
-  "🥠",
-  "🍩",
-  "🍦",
-  "🍨",
-  "🥨",
-  "🥐",
-  "🥮",
-];
-
-const now = new Date();
-const month = now.getMonth();
-const date = now.getDate();
+import { useDispatch, useSelector } from "react-redux";
+import { addCookie } from "./actions";
 
 function App() {
-  const [getCookies, setGetCookies] = useState(readCookiesFromLocalstorage);
+  const dispatch = useDispatch();
+  const { cookies } = useSelector((state) => state.todoReducer);
   const [isAllDone, setIsAllDone] = useState(false);
 
+  const cookieIcons = [
+    "🍭",
+    "🍬",
+    "🍪",
+    "🍘",
+    "🥠",
+    "🍩",
+    "🍦",
+    "🍨",
+    "🥨",
+    "🥐",
+    "🥮",
+  ];
+  const now = new Date();
+  const month = now.getMonth();
+  const date = now.getDate();
+
+  let newid = uuidv4();
+  let cookieIcon = cookieIcons[Math.floor(Math.random() * cookieIcons.length)];
+  let cookiedate = `${month}월 ${date}일`;
+
   useEffect(() => {
-    if (
-      isAllDone &&
-      !getCookies.map((el) => el.date).includes(`${month}월 ${date}일`)
-    ) {
-      setGetCookies([
-        ...getCookies,
-        {
-          id: uuidv4(),
-          cookie: cookieIcons[Math.floor(Math.random() * cookieIcons.length)],
-          date: `${month}월 ${date}일`,
-        },
-      ]);
+    if (isAllDone && !cookies.map((el) => el.date).includes(cookiedate)) {
+      dispatch(addCookie(newid, cookieIcon, cookiedate));
     }
-    localStorage.setItem("getCookies", JSON.stringify(getCookies));
     localStorage.setItem("isAllDone", JSON.stringify(isAllDone));
   }, [isAllDone]);
 
@@ -65,12 +54,7 @@ function App() {
           path="/todolist"
           element={<TodoListContainer setIsAllDone={setIsAllDone} />}
         />
-        <Route
-          path="/cookies"
-          element={
-            <Cookies getCookies={getCookies} setGetCookies={setGetCookies} />
-          }
-        />
+        <Route path="/cookies" element={<Cookies />} />
         <Route path="/information" element={<Information />} />
         <Route path="/calendar" element={<ToDoCalendar />} />
       </Routes>
