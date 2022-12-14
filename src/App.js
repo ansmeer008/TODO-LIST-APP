@@ -46,7 +46,7 @@ function App() {
   }, [isAllDone]);
 
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<Start />} />
         <Route path="/menu" element={<Menu />} />
