@@ -7,14 +7,13 @@ import Cookies from "./pages/Cookies";
 import ToDoCalendar from "./pages/ToDoCalendar";
 import Menu from "./pages/Menu";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { getCookieData } from "./static/data";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { addCookie } from "./actions";
 
 function App() {
   const dispatch = useDispatch();
-  const { cookies } = useSelector((state) => state.todoReducer);
+  const { cookies } = useSelector((state) => state.cookieReducer);
   const [isAllDone, setIsAllDone] = useState(false);
 
   const cookieIcons = [
@@ -41,6 +40,7 @@ function App() {
   useEffect(() => {
     if (isAllDone && !cookies.map((el) => el.date).includes(cookiedate)) {
       dispatch(addCookie(newid, cookieIcon, cookiedate));
+      console.log(cookiedate);
     }
     localStorage.setItem("isAllDone", JSON.stringify(isAllDone));
   }, [isAllDone]);

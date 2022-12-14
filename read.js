@@ -59,4 +59,8 @@
 //조금 시간을 들여서 수정해야 할 것 같다.
 //https://kyounghwan01.github.io/blog/React/redux/redux-persist/#persist-store-%E1%84%89%E1%85%A1%E1%84%8B%E1%85%AD%E1%86%BC
 
-//리덕스 어느정도 수정은 했는데... 다시 원점으로 쿠키가 같은 날 여러 개 반복해서 발행된다...
+//12월 14일
+//리덕스 어느정도 수정은 했는데... 다시 원점으로 쿠키가 같은 날 여러 개 반복해서 발행되어서 다시 코드를 찬찬히 살펴봤다.
+//문제는 cookies 라는 state를 불러올 때 state.todoReducer로 설정해주었던 것이 문제였다...
+//쿠키 관련 상태를 관리하는 건 cookieReducer니까... cookies를 불러올 때도 state.cookieReducer를 해주어야 한다!!!
+//빠르게 고칠 점을 찾아내서 기쁘다 !!
