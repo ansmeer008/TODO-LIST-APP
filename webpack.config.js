@@ -1,12 +1,12 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   entry: "./src/index.js",
   output: {
-    path: path.join(__dirname, "docs"),
+    path: path.join(__dirname, "/dist"),
     filename: "[name].js",
     clean: true,
   },
@@ -23,6 +23,14 @@ module.exports = {
         test: /.s?css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader"], //추가
         exclude: /node_modules/,
+      },
+      {
+        test: /\.(png|jpe?g|gif)$/i,
+        use: [
+          {
+            loader: "file-loader",
+          },
+        ],
       },
     ],
   },
