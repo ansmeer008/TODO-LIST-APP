@@ -12699,22 +12699,22 @@ function BrowserRouter(_ref) {
     children,
     window
   } = _ref;
-  let historyRef = react.useRef();
+  let historyRef = React.useRef();
 
   if (historyRef.current == null) {
-    historyRef.current = router_createBrowserHistory({
+    historyRef.current = createBrowserHistory({
       window,
       v5Compat: true
     });
   }
 
   let history = historyRef.current;
-  let [state, setState] = react.useState({
+  let [state, setState] = React.useState({
     action: history.action,
     location: history.location
   });
-  react.useLayoutEffect(() => history.listen(setState), [history]);
-  return /*#__PURE__*/react.createElement(dist_Router, {
+  React.useLayoutEffect(() => history.listen(setState), [history]);
+  return /*#__PURE__*/React.createElement(Router, {
     basename: basename,
     children: children,
     location: state.location,
@@ -12733,22 +12733,22 @@ function HashRouter(_ref2) {
     children,
     window
   } = _ref2;
-  let historyRef = React.useRef();
+  let historyRef = react.useRef();
 
   if (historyRef.current == null) {
-    historyRef.current = createHashHistory({
+    historyRef.current = router_createHashHistory({
       window,
       v5Compat: true
     });
   }
 
   let history = historyRef.current;
-  let [state, setState] = React.useState({
+  let [state, setState] = react.useState({
     action: history.action,
     location: history.location
   });
-  React.useLayoutEffect(() => history.listen(setState), [history]);
-  return /*#__PURE__*/React.createElement(Router, {
+  react.useLayoutEffect(() => history.listen(setState), [history]);
+  return /*#__PURE__*/react.createElement(dist_Router, {
     basename: basename,
     children: children,
     location: state.location,
@@ -29411,7 +29411,7 @@ function App() {
     setIsAllDone = _useState2[1];
   var cookieIcons = ["🍭", "🍬", "🍪", "🍘", "🥠", "🍩", "🍦", "🍨", "🥨", "🥐", "🥮"];
   var now = new Date();
-  var month = now.getMonth();
+  var month = now.getMonth() + 1;
   var date = now.getDate();
   var newid = esm_browser_v4();
   var cookieIcon = cookieIcons[Math.floor(Math.random() * cookieIcons.length)];
@@ -29425,8 +29425,8 @@ function App() {
     }
     localStorage.setItem("isAllDone", JSON.stringify(isAllDone));
   }, [isAllDone]);
-  return /*#__PURE__*/(0,jsx_runtime.jsx)(BrowserRouter, {
-    basename: process.env.PUBLIC_URL,
+  return /*#__PURE__*/(0,jsx_runtime.jsx)(HashRouter, {
+    basename: "/",
     children: /*#__PURE__*/(0,jsx_runtime.jsxs)(Routes, {
       children: [/*#__PURE__*/(0,jsx_runtime.jsx)(Route, {
         path: "/",
