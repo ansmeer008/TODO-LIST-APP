@@ -6,7 +6,7 @@ import Information from "./pages/Information";
 import Cookies from "./pages/Cookies";
 import ToDoCalendar from "./pages/ToDoCalendar";
 import Menu from "./pages/Menu";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { useDispatch, useSelector } from "react-redux";
 import { addCookie } from "./actions";
@@ -30,7 +30,7 @@ function App() {
     "🥮",
   ];
   const now = new Date();
-  const month = now.getMonth();
+  const month = now.getMonth() + 1;
   const date = now.getDate();
 
   let newid = uuidv4();
@@ -46,7 +46,7 @@ function App() {
   }, [isAllDone]);
 
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router basename="/">
       <Routes>
         <Route path="/" element={<Start />} />
         <Route path="/menu" element={<Menu />} />
