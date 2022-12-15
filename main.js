@@ -29426,7 +29426,6 @@ function App() {
     localStorage.setItem("isAllDone", JSON.stringify(isAllDone));
   }, [isAllDone]);
   return /*#__PURE__*/(0,jsx_runtime.jsx)(BrowserRouter, {
-    basename: process.env.PUBLIC_URL,
     children: /*#__PURE__*/(0,jsx_runtime.jsxs)(Routes, {
       children: [/*#__PURE__*/(0,jsx_runtime.jsx)(Route, {
         path: "/",
